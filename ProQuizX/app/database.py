@@ -64,35 +64,56 @@ def init_db():
 def seed_questions(db):
     """Insert starter questions for all quiz categories."""
     questions = [
-        # Programming
-        ("Programming", "Which language is mainly used for web page structure?", "CSS", "HTML", "Python", "SQL", "B"),
-        ("Programming", "What does CSS stand for?", "Creative Style Sheets", "Cascading Style Sheets", "Computer Style Syntax", "Colorful Style Sheets", "B"),
-        ("Programming", "Which symbol is used for comments in Python?", "//", "#", "/* */", "<!-- -->", "B"),
-        ("Programming", "Which data structure uses LIFO?", "Queue", "Array", "Stack", "Tree", "C"),
-        ("Programming", "Which keyword is used to define a function in Python?", "func", "define", "def", "function", "C"),
 
-        # General Knowledge
-        ("General Knowledge", "Which planet is known as the Red Planet?", "Earth", "Mars", "Jupiter", "Venus", "B"),
-        ("General Knowledge", "Who wrote the national anthem of India?", "Rabindranath Tagore", "Mahatma Gandhi", "Sarojini Naidu", "Subhash Chandra Bose", "A"),
-        ("General Knowledge", "Which is the largest ocean in the world?", "Indian Ocean", "Arctic Ocean", "Pacific Ocean", "Atlantic Ocean", "C"),
-        ("General Knowledge", "How many continents are there?", "5", "6", "7", "8", "C"),
-        ("General Knowledge", "Which gas do plants absorb?", "Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen", "B"),
+            # ================= ADVANCED JAVA =================
+            ("Advanced Java", "What is JDBC?", "Java Database Connectivity", "Java Data Control", "Java DB Class", "None", "A"),
+            ("Advanced Java", "Servlet is used for?", "Frontend", "Backend processing", "Styling", "Design", "B"),
+            ("Advanced Java", "Which package is used for JDBC?", "java.sql", "java.io", "java.net", "java.util", "A"),
+            ("Advanced Java", "Which method starts a thread?", "run()", "start()", "execute()", "init()", "B"),
+            ("Advanced Java", "JSP stands for?", "Java Server Pages", "Java Simple Pages", "Java Service Pages", "None", "A"),
+            ("Advanced Java", "Which is session tracking?", "Cookies", "URL rewriting", "Hidden fields", "All", "D"),
+            ("Advanced Java", "DriverManager class is in?", "java.sql", "java.io", "java.net", "java.util", "A"),
+            ("Advanced Java", "Which protocol used in servlet?", "HTTP", "FTP", "SMTP", "TCP", "A"),
+            ("Advanced Java", "doGet() method is used for?", "Insert", "Retrieve", "Delete", "Update", "B"),
+            ("Advanced Java", "JDBC full form?", "Java Database Connectivity", "Java Data Control", "Java DB Class", "None", "A"),
 
-        # Aptitude
-        ("Aptitude", "If 5x = 20, then x = ?", "2", "3", "4", "5", "C"),
-        ("Aptitude", "Average of 10, 20 and 30 is?", "15", "20", "25", "30", "B"),
-        ("Aptitude", "What is 25% of 200?", "25", "40", "50", "75", "C"),
-        ("Aptitude", "If a train travels 60 km in 1 hour, speed is?", "30 km/h", "60 km/h", "90 km/h", "120 km/h", "B"),
-        ("Aptitude", "Next number: 2, 4, 8, 16, ?", "18", "20", "24", "32", "D"),
+            # ================= DATA MINING =================
+            ("Data Mining", "Data Mining is used for?", "Data analysis", "Cooking", "Drawing", "Gaming", "A"),
+            ("Data Mining", "Clustering is?", "Grouping data", "Sorting", "Deleting", "Printing", "A"),
+            ("Data Mining", "Classification is?", "Predicting category", "Sorting", "Grouping", "None", "A"),
+            ("Data Mining", "K-means is?", "Clustering algorithm", "Sorting method", "DB tool", "None", "A"),
+            ("Data Mining", "Association rule mining finds?", "Relationships", "Sorting", "Deleting", "Printing", "A"),
+            ("Data Mining", "Data warehouse stores?", "Large data", "Small data", "Images", "Audio", "A"),
+            ("Data Mining", "Apriori algorithm is used for?", "Association", "Sorting", "Clustering", "None", "A"),
+            ("Data Mining", "Outlier is?", "Abnormal data", "Normal data", "Sorted data", "None", "A"),
+            ("Data Mining", "Data preprocessing includes?", "Cleaning", "Cooking", "Painting", "None", "A"),
+            ("Data Mining", "Decision tree is?", "Classification model", "Sorting", "DB", "None", "A"),
 
-        # Technology
-        ("Technology", "What does AI stand for?", "Automated Internet", "Artificial Intelligence", "Advanced Input", "Auto Interface", "B"),
-        ("Technology", "Which company developed Android?", "Apple", "Google", "Microsoft", "IBM", "B"),
-        ("Technology", "What does URL stand for?", "Uniform Resource Locator", "Universal Read Link", "User Resource Login", "Unified Routing Line", "A"),
-        ("Technology", "Which is an example of cloud storage?", "Google Drive", "Keyboard", "Monitor", "RAM", "A"),
-        ("Technology", "What does CPU stand for?", "Central Processing Unit", "Computer Power Unit", "Central Program Utility", "Control Processing User", "A"),
-    ]
+            # ================= TOC =================
+            ("TOC", "DFA stands for?", "Deterministic Finite Automata", "Data File Access", "Digital Format App", "None", "A"),
+            ("TOC", "NFA means?", "Non-deterministic FA", "New File Access", "Network File App", "None", "A"),
+            ("TOC", "Regular expression is?", "Pattern", "Data", "File", "None", "A"),
+            ("TOC", "Grammar is used for?", "Language", "Sorting", "Database", "None", "A"),
+            ("TOC", "Pushdown automata uses?", "Stack", "Queue", "Array", "None", "A"),
+            ("TOC", "Turing machine is?", "Powerful model", "Weak model", "DB", "None", "A"),
+            ("TOC", "Context free grammar is?", "CFG", "DFG", "AFG", "None", "A"),
+            ("TOC", "Language accepted by DFA is?", "Regular", "Context free", "Recursive", "None", "A"),
+            ("TOC", "Finite automata has?", "Finite states", "Infinite states", "No states", "None", "A"),
+            ("TOC", "Alphabet is?", "Set of symbols", "Numbers", "Words", "None", "A"),
 
+            # ================= AI =================
+            ("Artificial Intelligence", "AI full form?", "Artificial Intelligence", "Auto Input", "Advanced Internet", "None", "A"),
+            ("Artificial Intelligence", "Machine learning is part of?", "AI", "Web", "DB", "OS", "A"),
+            ("Artificial Intelligence", "AI used in?", "Robotics", "Cooking", "Painting", "None", "A"),
+            ("Artificial Intelligence", "Supervised learning uses?", "Labeled data", "Unlabeled", "Random", "None", "A"),
+            ("Artificial Intelligence", "Neural network is?", "AI model", "DB", "OS", "None", "A"),
+            ("Artificial Intelligence", "Deep learning is?", "Advanced ML", "Basic ML", "DB", "None", "A"),
+            ("Artificial Intelligence", "AI goal is?", "Smart machines", "Fast typing", "Gaming", "None", "A"),
+            ("Artificial Intelligence", "Chatbot uses?", "AI", "HTML", "CSS", "None", "A"),
+            ("Artificial Intelligence", "Vision in AI means?", "Image processing", "Sound", "Text", "None", "A"),
+            ("Artificial Intelligence", "NLP stands for?", "Natural Language Processing", "Network Language", "None", "None", "A"),
+
+]
     db.executemany("""
         INSERT INTO questions
         (category, question, option_a, option_b, option_c, option_d, correct_option)

@@ -132,13 +132,13 @@ def dashboard():
         "SELECT * FROM scores WHERE user_id = ? ORDER BY created_at DESC LIMIT 5",
         (session["user_id"],)
     ).fetchall()
-    categories = ["Programming", "General Knowledge", "Aptitude", "Technology"]
+    categories = ["Advanced Java", "Data Mining", "TOC", "Artificial Intelligence"]
     return render_template("dashboard.html", categories=categories, history=history)
 
 @main.route("/quiz/<category>")
 @login_required
 def quiz(category):
-    allowed = ["Programming", "General Knowledge", "Aptitude", "Technology"]
+    allowed = ["Advanced Java", "Data Mining", "TOC", "Artificial Intelligence"]
     if category not in allowed:
         flash("Invalid quiz category.", "error")
         return redirect(url_for("main.dashboard"))

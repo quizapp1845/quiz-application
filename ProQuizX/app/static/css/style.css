@@ -706,3 +706,8 @@ th {
     align-items: center;
   }
 }
+
+.secondary-btn {
+  background: #e2e8f0 !important;
+  color: #1e293b !important;
+}
