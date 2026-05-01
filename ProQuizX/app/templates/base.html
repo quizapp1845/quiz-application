@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quiz-App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Main stylesheet -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="bg-blur one"></div>
+    <div class="bg-blur two"></div>
+
+    <nav class="navbar">
+      <a
+        href="{{ url_for('main.dashboard') if session.get('user_id') else url_for('main.login') }}"
+        class="logo"
+      >
+        Quiz-App
+      </a>
+
+      {% if session.get("user_id") %}
+      <div class="nav-right">
+        <span class="nav-user">{{ session.get("username") }}</span>
+        <a href="{{ url_for('main.logout') }}" class="nav-link">Logout</a>
+      </div>
+      {% endif %}
+    </nav>
+
+    <main class="page">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="flash-wrapper">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </main>
+
+    <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

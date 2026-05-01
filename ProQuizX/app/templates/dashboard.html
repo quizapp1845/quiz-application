@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% block content %}
+<section class="dashboard">
+  <div class="hero glass">
+    <div>
+      <p class="eyebrow">Quiz Platform</p>
+      <h1>Hello, {{ session.get("username") }} 👋</h1>
+      <p>
+        Select a category and start your quiz. Your performance history will be
+        saved automatically.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Choose Quiz Category</h2>
+
+  <div class="category-grid">
+    {% for category in categories %}
+    <a
+      class="category-card glass"
+      href="{{ url_for('main.quiz', category=category) }}"
+    >
+      <div class="category-icon">
+        {% if category == "Programming" %}💻 {% elif category == "General
+        Knowledge" %}🌍 {% elif category == "Aptitude" %}🧠 {% else %}🚀 {%
+        endif %}
+      </div>
+      <h3>{{ category }}</h3>
+      <p>Start a timed quiz and test your knowledge.</p>
+      <span>Start Quiz →</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <h2 class="section-title">Recent Performance</h2>
+
+  <div class="history-card glass">
+    {% if history %}
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Score</th>
+          <th>Percentage</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in history %}
+        <tr>
+          <td>{{ item["category"] }}</td>
+          <td>{{ item["score"] }}/{{ item["total"] }}</td>
+          <td>{{ item["percentage"] }}%</td>
+          <td>{{ item["created_at"] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No quiz history yet. Start your first quiz now.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

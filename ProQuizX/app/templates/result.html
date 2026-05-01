@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="result-page">
+    <div class="result-card glass">
+        <p class="eyebrow">Quiz Completed</p>
+        <h1>{{ result.category }}</h1>
+
+        <div class="score-circle">
+            <span>{{ result.percentage }}%</span>
+        </div>
+
+        <h2>{{ result.score }}/{{ result.total }}</h2>
+
+        {% if result.status == "PASS" %}
+            <p class="status pass">PASS</p>
+        {% else %}
+            <p class="status fail">FAIL</p>
+        {% endif %}
+
+        <div class="result-progress">
+            <div class="result-fill" style="width: {{ result.percentage }}%;"></div>
+        </div>
+
+        <a class="primary-btn link-btn" href="{{ url_for('main.dashboard') }}">Back to Dashboard</a>
+    </div>
+
+    <h2 class="section-title">Answer Review</h2>
+
+    <div class="review-list">
+        {% for item in result.review %}
+        <div class="review-card glass {{ 'right' if item.is_correct else 'wrong' }}">
+            <h3>{{ loop.index }}. {{ item.question }}</h3>
+            <p>Your Answer: <strong>{{ item.your_answer }}</strong></p>
+            <p>Correct Answer: <strong>{{ item.correct_answer }} - {{ item.correct_text }}</strong></p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
