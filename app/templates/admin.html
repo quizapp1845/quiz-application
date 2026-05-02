@@ -1,0 +1,32 @@
+<h2>Admin Panel</h2>
+
+<form method="POST" action="/admin/add">
+  <input name="category" placeholder="Category" required />
+  <input name="question" placeholder="Question" required />
+  <input name="a" placeholder="Option A" required />
+  <input name="b" placeholder="Option B" required />
+  <input name="c" placeholder="Option C" required />
+  <input name="d" placeholder="Option D" required />
+  <input name="correct" placeholder="Correct (A/B/C/D)" required />
+  <button>Add Question</button>
+</form>
+
+<hr />
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Question</th>
+    <th>Action</th>
+  </tr>
+
+  {% for q in questions %}
+  <tr>
+    <td>{{ q.id }}</td>
+    <td>{{ q.question }}</td>
+    <td>
+      <a href="/admin/delete/{{ q.id }}">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>

@@ -711,3 +711,8 @@ th {
   background: #e2e8f0 !important;
   color: #1e293b !important;
 }
+
+button:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
+}

@@ -1,28 +1,36 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <section class="auth-container">
-    <div class="auth-card glass">
-        <div class="auth-header">
-            <h1>Welcome Back</h1>
-            <p>Login and continue your quiz journey.</p>
-        </div>
-
-        <form method="POST" class="form" onsubmit="return validateLogin()">
-            <label>Username or Email</label>
-            <input type="text" name="username" id="loginUsername" placeholder="Enter username or email">
-
-            <label>Password</label>
-            <input type="password" name="password" id="loginPassword" placeholder="Enter password">
-
-            <button class="primary-btn" type="submit">Login</button>
-        </form>
-
-        <div class="auth-links">
-            <a href="{{ url_for('main.forgot_password') }}">Forgot Password?</a>
-            <span>New here?</span>
-            <a href="{{ url_for('main.register') }}">Create Account</a>
-        </div>
+  <div class="auth-card glass">
+    <div class="auth-header">
+      <h1>Welcome Back</h1>
+      <p>Login and continue your quiz journey.</p>
     </div>
+
+    <form method="POST" class="form" onsubmit="return validateLogin();">
+      <label>Username or Email</label>
+      <input
+        type="text"
+        name="username"
+        id="loginUsername"
+        placeholder="Enter username or email"
+      />
+
+      <label>Password</label>
+      <input
+        type="password"
+        name="password"
+        id="loginPassword"
+        placeholder="Enter password"
+      />
+
+      <button class="primary-btn" type="submit">Login</button>
+    </form>
+
+    <div class="auth-links">
+      <a href="{{ url_for('main.forgot_password') }}">Forgot Password?</a>
+      <span>New here?</span>
+      <a href="{{ url_for('main.register') }}">Create Account</a>
+    </div>
+  </div>
 </section>
 {% endblock %}

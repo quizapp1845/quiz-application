@@ -1,3 +1,4 @@
+import re
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
@@ -32,8 +33,17 @@ def register():
             flash("All fields are required.", "error")
             return redirect(url_for("main.register"))
 
-        if len(password) < 6:
-            flash("Password must be at least 6 characters.", "error")
+        # 🔒 Strong password validation
+        if len(password) < 8:
+            flash("Password must be at least 8 characters.", "error")
+            return redirect(url_for("main.register"))
+
+        if not re.search(r"\d", password):
+            flash("Password must contain at least 1 number.", "error")
+            return redirect(url_for("main.register"))
+
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+            flash("Password must contain at least 1 special character.", "error")
             return redirect(url_for("main.register"))
 
         db = get_db()
@@ -148,8 +158,23 @@ def quiz(category):
 @login_required
 def api_questions(category):
     db = get_db()
+
+    # 🔥 category wise session key
+    session_key = f"quiz_{category}"
+
+    # agar already stored hai → wahi return karo
+    if session_key in session:
+        return jsonify(session[session_key])
+
+    # warna new random questions lo
     rows = db.execute(
-        "SELECT id, question, option_a, option_b, option_c, option_d FROM questions WHERE category = ?",
+        """
+        SELECT id, question, option_a, option_b, option_c, option_d 
+        FROM questions 
+        WHERE category = ?
+        ORDER BY RANDOM()
+        LIMIT 10
+        """,
         (category,)
     ).fetchall()
 
@@ -166,7 +191,11 @@ def api_questions(category):
             }
         })
 
+    # 🔥 category wise save
+    session[session_key] = questions
+
     return jsonify(questions)
+
 
 @main.route("/submit-quiz", methods=["POST"])
 @login_required
@@ -209,6 +238,8 @@ def submit_quiz():
     )
     db.commit()
 
+    session.pop(f"quiz_{category}", None)
+
     session["last_result"] = {
         "category": category,
         "score": score,
@@ -227,3 +258,39 @@ def result():
     if not result_data:
         return redirect(url_for("main.dashboard"))
     return render_template("result.html", result=result_data)
+
+@main.route("/leaderboard")
+@login_required
+def leaderboard():
+    db = get_db()
+
+    users = db.execute("""
+        SELECT users.username, scores.score
+        FROM scores
+        JOIN users ON users.id = scores.user_id
+        ORDER BY scores.score DESC
+        LIMIT 10
+    """).fetchall()
+
+    return render_template("leaderboard.html", users=users)
+
+@main.route("/profile")
+@login_required
+def profile():
+    db = get_db()
+
+    user = db.execute(
+        "SELECT * FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+
+    stats = db.execute("""
+        SELECT 
+            COUNT(*) as total_quiz,
+            AVG(score) as avg_score
+        FROM scores
+        WHERE user_id = ?
+    """, (session["user_id"],)).fetchone()
+
+
+    return render_template("profile.html", user=user, stats=stats)

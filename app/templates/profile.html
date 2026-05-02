@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="auth-container">
+  <div class="auth-card glass">
+    <h2 style="text-align: center">👤 Profile</h2>
+
+    <div style="margin-top: 20px">
+      <p><strong>Username:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+
+    <hr style="margin: 20px 0" />
+
+    <div>
+      <p><strong>Total Quizzes:</strong> {{ stats.total_quiz }}</p>
+      <p>
+        <strong>Average Score:</strong> {{ stats.avg_score | round(2) if
+        stats.avg_score else 0 }}
+      </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px">
+      <a href="/dashboard">
+        <button class="primary-btn">⬅ Back</button>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
