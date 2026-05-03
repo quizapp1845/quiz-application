@@ -20,8 +20,9 @@
         href="{{ url_for('main.dashboard') if session.get('user_id') else url_for('main.login') }}"
         class="logo"
       >
-        Quiz-App
+        Quiz<span>-App</span>
       </a>
+      
 
       {% if session.get("user_id") %}
       <div class="nav-right">

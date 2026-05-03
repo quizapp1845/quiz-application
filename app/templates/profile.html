@@ -4,8 +4,8 @@
     <h2 style="text-align: center">👤 Profile</h2>
 
     <div style="margin-top: 20px">
-      <p><strong>Username:</strong> {{ user.username }}</p>
-      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Username:</strong> {{ user["username"] }}</p>
+      <p><strong>Email:</strong> {{ user["email"] }}</p>
     </div>
 
     <hr style="margin: 20px 0" />
@@ -13,8 +13,8 @@
     <div>
       <p><strong>Total Quizzes:</strong> {{ stats.total_quiz }}</p>
       <p>
-        <strong>Average Score:</strong> {{ stats.avg_score | round(2) if
-        stats.avg_score else 0 }}
+        <strong>Average Score:</strong>
+        {{ stats.avg_score | round(2) if stats.avg_score else 0 }}
       </p>
     </div>
 

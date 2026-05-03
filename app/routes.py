@@ -138,22 +138,50 @@ def logout():
 @login_required
 def dashboard():
     db = get_db()
+
     history = db.execute(
         "SELECT * FROM scores WHERE user_id = ? ORDER BY created_at DESC LIMIT 5",
         (session["user_id"],)
     ).fetchall()
-    categories = ["Advanced Java", "Data Mining", "TOC", "Artificial Intelligence"]
+
+    # 🔥 single source of truth (same list everywhere)
+    categories = [
+        "Advanced Java",
+        "Data Mining",
+        "TOC",
+        "Artificial Intelligence",
+        "Python",
+        "DBMS",
+        "Operating System",
+        "Computer Networks"
+    ]
+
     return render_template("dashboard.html", categories=categories, history=history)
+
 
 @main.route("/quiz/<category>")
 @login_required
 def quiz(category):
-    allowed = ["Advanced Java", "Data Mining", "TOC", "Artificial Intelligence"]
-    if category not in allowed:
+
+    categories = [
+        "Advanced Java",
+        "Data Mining",
+        "TOC",
+        "Artificial Intelligence",
+        "Python",
+        "DBMS",
+        "Operating System",
+        "Computer Networks"
+    ]
+
+    # 🔥 SAFE FIX (old cached questions clear)
+    session.pop(f"quiz_{category}", None)
+
+    if category.strip() not in categories:
         flash("Invalid quiz category.", "error")
         return redirect(url_for("main.dashboard"))
-    return render_template("quiz.html", category=category)
 
+    return render_template("quiz.html", category=category)
 @main.route("/api/questions/<category>")
 @login_required
 def api_questions(category):
@@ -265,12 +293,13 @@ def leaderboard():
     db = get_db()
 
     users = db.execute("""
-        SELECT users.username, scores.score
-        FROM scores
-        JOIN users ON users.id = scores.user_id
-        ORDER BY scores.score DESC
-        LIMIT 10
-    """).fetchall()
+    SELECT users.username, MAX(scores.score) as score
+    FROM scores
+    JOIN users ON users.id = scores.user_id
+    GROUP BY users.id
+    ORDER BY score DESC
+    LIMIT 10
+""").fetchall()
 
     return render_template("leaderboard.html", users=users)
 
@@ -291,6 +320,5 @@ def profile():
         FROM scores
         WHERE user_id = ?
     """, (session["user_id"],)).fetchone()
-
 
     return render_template("profile.html", user=user, stats=stats)
